@@ -2,7 +2,7 @@
 
 /* Logo sizing in navbar */
 .navbar-brand img {
-    max-height: 40px;
+    max-height: 30px;
     width: auto;
 }
 
@@ -28,9 +28,36 @@ table.docutils th {
     border-radius: 6px;
 }
 
-/* Center images used as hero/overview */
-.only-light,
-.only-dark {
-    display: block;
+/* Hero logo - light/dark switching */
+html[data-theme="light"] .only-dark,
+html:not([data-theme="dark"]) .only-dark {
+    display: none !important;
+}
+
+html[data-theme="dark"] .only-light {
+    display: none !important;
+}
+
+html[data-theme="dark"] .only-dark {
+    display: block !important;
+}
+
+.only-light, .only-dark {
     margin: 0 auto;
+}
+
+/* Card link styling to match MkDocs */
+.sd-card .sd-card-body a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sd-card .sd-card-body a:hover {
+    text-decoration: underline;
+}
+
+/* Hide the h1 title on landing page since logo replaces it */
+.bd-content h1:first-of-type {
+    display: none;
 }

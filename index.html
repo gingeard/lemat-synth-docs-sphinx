@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=15b16c64" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e2ca7d52" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -122,7 +122,7 @@
     
     
     <img src="_static/lematerial-logo-light.png" class="logo__image only-light" alt="LeMaterial-Synthesis  documentation - Home"/>
-    <img src="_static/lematerial-icon.png" class="logo__image only-dark pst-js-only" alt="LeMaterial-Synthesis  documentation - Home"/>
+    <img src="_static/lematerial-logo-dark.png" class="logo__image only-dark pst-js-only" alt="LeMaterial-Synthesis  documentation - Home"/>
   
   
 </a></div>
@@ -352,11 +352,14 @@
 <h1>LeMaterial-Synthesis<a class="headerlink" href="#lematerial-synthesis" title="Link to this heading">#</a></h1>
 <a class="only-light reference internal image-reference" href="_images/lematerial-logo-light.png"><img alt="LeMaterial-Synthesis logo" class="align-center only-light" src="_images/lematerial-logo-light.png" style="width: 400px;" />
 </a>
-<a class="only-dark reference internal image-reference" href="_images/lematerial-icon.png"><img alt="LeMaterial-Synthesis logo" class="align-center only-dark" src="_images/lematerial-icon.png" style="width: 400px;" />
+<a class="only-dark reference internal image-reference" href="_images/lematerial-logo-dark.png"><img alt="LeMaterial-Synthesis logo" class="align-center only-dark" src="_images/lematerial-logo-dark.png" style="width: 400px;" />
 </a>
 <p>An open-source multi-modal toolbox for extracting structured synthesis procedures and performance data from materials science literature at scale.</p>
-<p><a class="reference external" href="https://arxiv.org/abs/2510.26824">Paper</a> | <a class="reference external" href="https://huggingface.co/datasets/LeMaterial/LeMat-Synth">Dataset</a> | <a class="reference external" href="https://github.com/LeMaterial/lematerial-llm-synthesis">GitHub</a></p>
-<section id="documentation">
+<div style="display: flex; gap: 8px; justify-content: center; margin: 1.5em 0;">
+  <a href="https://arxiv.org/abs/2510.26824" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">Paper</a>
+  <a href="https://huggingface.co/datasets/LeMaterial/LeMat-Synth" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">Dataset</a>
+  <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">GitHub</a>
+</div><section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
@@ -367,6 +370,7 @@
 Explanation</div>
 <p class="sd-card-text"><strong>Concepts &amp; architecture</strong></p>
 <p class="sd-card-text">Understand what LeMat-Synth is, how the multi-modal extraction pipeline works, and the design decisions behind the toolbox.</p>
+<p class="sd-card-text"><a class="reference internal" href="explanation/index.html"><span class="doc std std-doc"><strong>Read Explanations</strong></span></a></p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="explanation/index.html"><span class="doc">Explanation</span></a></div>
 </div>
@@ -377,6 +381,7 @@ Explanation</div>
 Reference</div>
 <p class="sd-card-text"><strong>Configuration &amp; data models</strong></p>
 <p class="sd-card-text">Full reference for Hydra configs, supported LLMs, synthesis ontology schema, and bibliographic resources.</p>
+<p class="sd-card-text"><a class="reference internal" href="reference/index.html"><span class="doc std std-doc"><strong>View Reference</strong></span></a></p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="reference/index.html"><span class="doc">Reference</span></a></div>
 </div>
@@ -387,6 +392,7 @@ Reference</div>
 Tutorials</div>
 <p class="sd-card-text"><strong>Step-by-step learning</strong></p>
 <p class="sd-card-text">Install the toolbox, run your first extraction, and explore interactive Jupyter notebooks with real data.</p>
+<p class="sd-card-text"><a class="reference internal" href="tutorials/index.html"><span class="doc std std-doc"><strong>Explore Tutorials</strong></span></a></p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="tutorials/index.html"><span class="doc">Tutorials</span></a></div>
 </div>
@@ -397,6 +403,7 @@ Tutorials</div>
 How-to Guides</div>
 <p class="sd-card-text"><strong>Practical recipes</strong></p>
 <p class="sd-card-text">Extract from HuggingFace or locally, run case studies, customize the pipeline, and contribute to the project.</p>
+<p class="sd-card-text"><a class="reference internal" href="how_to/index.html"><span class="doc std std-doc"><strong>Browse How-to Guides</strong></span></a></p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="how_to/index.html"><span class="doc">How-to Guides</span></a></div>
 </div>
@@ -465,15 +472,6 @@ How-to Guides</div>
 </ul>
   </nav></div>
 
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.md.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
 </div></div>
               
             
@@ -491,44 +489,6 @@ How-to Guides</div>
 <script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
-
-  <p class="copyright">
-    
-      © Copyright 2025, LeMaterial.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
-
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
   </footer>
   </body>
 </html>

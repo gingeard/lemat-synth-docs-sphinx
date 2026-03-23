@@ -7,7 +7,7 @@
 :class: only-light
 ```
 
-```{image} _static/img/lematerial-icon.png
+```{image} _static/img/lematerial-logo-dark.png
 :alt: LeMaterial-Synthesis logo
 :width: 400px
 :align: center
@@ -16,7 +16,13 @@
 
 An open-source multi-modal toolbox for extracting structured synthesis procedures and performance data from materials science literature at scale.
 
-[Paper](https://arxiv.org/abs/2510.26824) | [Dataset](https://huggingface.co/datasets/LeMaterial/LeMat-Synth) | [GitHub](https://github.com/LeMaterial/lematerial-llm-synthesis)
+```{raw} html
+<div style="display: flex; gap: 8px; justify-content: center; margin: 1.5em 0;">
+  <a href="https://arxiv.org/abs/2510.26824" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">Paper</a>
+  <a href="https://huggingface.co/datasets/LeMaterial/LeMat-Synth" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">Dataset</a>
+  <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" style="background: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 500;">GitHub</a>
+</div>
+```
 
 ## Documentation
 
@@ -30,6 +36,8 @@ An open-source multi-modal toolbox for extracting structured synthesis procedure
 **Concepts & architecture**
 
 Understand what LeMat-Synth is, how the multi-modal extraction pipeline works, and the design decisions behind the toolbox.
+
+[**Read Explanations**](explanation/index)
 :::
 
 :::{grid-item-card} Reference
@@ -39,6 +47,8 @@ Understand what LeMat-Synth is, how the multi-modal extraction pipeline works, a
 **Configuration & data models**
 
 Full reference for Hydra configs, supported LLMs, synthesis ontology schema, and bibliographic resources.
+
+[**View Reference**](reference/index)
 :::
 
 :::{grid-item-card} Tutorials
@@ -48,6 +58,8 @@ Full reference for Hydra configs, supported LLMs, synthesis ontology schema, and
 **Step-by-step learning**
 
 Install the toolbox, run your first extraction, and explore interactive Jupyter notebooks with real data.
+
+[**Explore Tutorials**](tutorials/index)
 :::
 
 :::{grid-item-card} How-to Guides
@@ -57,6 +69,8 @@ Install the toolbox, run your first extraction, and explore interactive Jupyter 
 **Practical recipes**
 
 Extract from HuggingFace or locally, run case studies, customize the pipeline, and contribute to the project.
+
+[**Browse How-to Guides**](how_to/index)
 :::
 
 ::::

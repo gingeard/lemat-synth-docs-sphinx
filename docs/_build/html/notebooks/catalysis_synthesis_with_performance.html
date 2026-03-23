@@ -1,0 +1,1525 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Synthesis + Performance Extraction Pipeline &#8212; LeMaterial-Synthesis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=525a56a9" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/catalysis_synthesis_with_performance';</script>
+    <link rel="icon" href="../_static/lematerial-icon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Keyword Search Explorer" href="keyword_search_explorer.html" />
+    <link rel="prev" title="Map of Science — Figure Workshop" href="catalysis_map_notebook.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/lematerial-logo-light.png" class="logo__image only-light" alt="LeMaterial-Synthesis  documentation - Home"/>
+    <img src="../_static/lematerial-logo-dark.png" class="logo__image only-dark pst-js-only" alt="LeMaterial-Synthesis  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanation/index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanation/index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/getting_started.html">Getting Started</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Fig2_Dataset_Statistics.html">Script to plot relevant plots for Fig. 2 (NeurIPS AI4Mat)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fig3_Synthesis_Procedure.html">Script to</a></li>
+<li class="toctree-l1"><a class="reference internal" href="catalysis_map_notebook.html">Map of Science — Figure Workshop</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Synthesis + Performance Extraction Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyword_search_explorer.html">Keyword Search Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="superconductivity_tc_extraction.html">Superconductivity Tc Extraction Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="superconductivity_tc_extraction_plus_snippet.html">Superconductivity Tc Extraction Pipeline + Snippet Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthesis_with_performance.html">Synthesis + Performance Extraction Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation_tc.html">Tc Extraction Visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation_tc_with_human_annotation.html">Tc Human Annotation Visualisation</a></li>
+
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Synthesis + Performance Extraction Pipeline</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Synthesis-+-Performance-Extraction-Pipeline">
+<h1>Synthesis + Performance Extraction Pipeline<a class="headerlink" href="#Synthesis-+-Performance-Extraction-Pipeline" title="Link to this heading">#</a></h1>
+<p>This notebook demonstrates the step-by-step extraction of:</p>
+<ol class="arabic simple">
+<li><p><strong>Materials</strong> from a scientific paper</p></li>
+<li><p><strong>Synthesis procedures</strong> for each material</p></li>
+<li><p><strong>Performance data</strong> from plots, linked to materials</p></li>
+</ol>
+<p>Each step produces visible output so you can inspect intermediate results.</p>
+<section id="Setup:-Configuration">
+<h2>Setup: Configuration<a class="headerlink" href="#Setup:-Configuration" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Force reload modules (run this after code changes)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">llm_synthesis.config.plot_filter_config</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">llm_synthesis</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">plot_filter_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==============================================================================</span>
+<span class="c1"># USER CONFIGURATION - Edit these values</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="c1"># Path to your PDF or markdown file</span>
+<span class="n">INPUT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/Users/valeriegentzke/Documents/Studieren/lemat_synth/lematerial-llm-synthesis/examples/data/pdf_papers/catalysis_corpus/Do2024Turning.pdf&quot;</span>  <span class="c1"># or .md file with embedded images</span>
+
+
+<span class="c1"># Output directory for results</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;results/&quot;</span>
+
+<span class="c1"># Models to use</span>
+<span class="n">GEMINI_MODEL</span> <span class="o">=</span> <span class="s2">&quot;gemini-3.0-flash&quot;</span>  <span class="c1"># For synthesis extraction</span>
+<span class="n">CLAUDE_MODEL</span> <span class="o">=</span> <span class="s2">&quot;claude-sonnet-4-5-20250929&quot;</span> <span class="c1">#&quot;claude-sonnet-4-20250514&quot;  # For plot data extraction</span>
+<span class="n">LINKER_MODEL</span> <span class="o">=</span> <span class="s2">&quot;gemini-3.0-flash&quot;</span>  <span class="c1"># For series-to-material matching</span>
+
+<span class="c1"># Set to True to skip figure/performance extraction (synthesis only)</span>
+<span class="n">SKIP_FIGURES</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load environment and imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Add src directory to Python path (required for imports)</span>
+<span class="n">src_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../../src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">src_path</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">src_path</span><span class="p">))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="c1"># Load .env file</span>
+<span class="n">env_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../../.env&quot;</span><span class="p">)</span>  <span class="c1"># Adjust path if needed</span>
+<span class="n">load_dotenv</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Silence noisy loggers</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;pydantic&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pydantic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;LiteLLM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;litellm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] Environment loaded&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] src path added: </span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-0:-Load-Paper-Text">
+<h2>Step 0: Load Paper Text<a class="headerlink" href="#Step-0:-Load-Paper-Text" title="Link to this heading">#</a></h2>
+<p>Extract text from PDF using Mistral OCR. If you already have markdown, it loads directly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.data_loader.paper_loader.fs_paper_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">FSPaperLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.models.paper</span><span class="w"> </span><span class="kn">import</span> <span class="n">Paper</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># SI FILE DETECTION HELPERS</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="n">SI_PATTERNS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_SI&quot;</span><span class="p">,</span> <span class="s2">&quot;-SI&quot;</span><span class="p">,</span> <span class="s2">&quot;_si&quot;</span><span class="p">,</span> <span class="s2">&quot;-si&quot;</span><span class="p">,</span> <span class="s2">&quot;_Supporting&quot;</span><span class="p">,</span> <span class="s2">&quot;_supporting&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;_Supplementary&quot;</span><span class="p">,</span> <span class="s2">&quot;_supplementary&quot;</span><span class="p">,</span> <span class="s2">&quot;_supp&quot;</span><span class="p">,</span> <span class="s2">&quot;_Supp&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">find_si_file</span><span class="p">(</span><span class="n">main_paper_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the SI file matching a main paper.&quot;&quot;&quot;</span>
+    <span class="n">parent_dir</span> <span class="o">=</span> <span class="n">main_paper_path</span><span class="o">.</span><span class="n">parent</span>
+    <span class="n">main_stem</span> <span class="o">=</span> <span class="n">main_paper_path</span><span class="o">.</span><span class="n">stem</span>
+
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">SI_PATTERNS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">]:</span>
+            <span class="n">si_path</span> <span class="o">=</span> <span class="n">parent_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">main_stem</span><span class="si">}{</span><span class="n">pattern</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">si_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">si_path</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_file_text</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">pdf_extractor</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load text from a PDF, MD, or TXT file.&quot;&quot;&quot;</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.pdf&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pdf_extractor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.pdf_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="n">MistralPDFExtractor</span>
+            <span class="n">pdf_extractor</span> <span class="o">=</span> <span class="n">MistralPDFExtractor</span><span class="p">(</span><span class="n">structured</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pdf_extractor</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">]:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file type: </span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># LOAD MAIN PAPER</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="n">input_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">INPUT_PATH</span><span class="p">)</span>
+<span class="n">pdf_extractor</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.pdf&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting text from PDF: </span><span class="si">{</span><span class="n">input_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.pdf_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="n">MistralPDFExtractor</span>
+    <span class="n">pdf_extractor</span> <span class="o">=</span> <span class="n">MistralPDFExtractor</span><span class="p">(</span><span class="n">structured</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">paper_text</span> <span class="o">=</span> <span class="n">load_file_text</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">pdf_extractor</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Main paper: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paper_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> characters&quot;</span><span class="p">)</span>
+
+<span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading markdown: </span><span class="si">{</span><span class="n">input_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">paper_text</span> <span class="o">=</span> <span class="n">load_file_text</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Main paper: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paper_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> characters&quot;</span><span class="p">)</span>
+
+<span class="k">elif</span> <span class="n">input_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading papers from directory: </span><span class="si">{</span><span class="n">input_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">FSPaperLoader</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">input_path</span><span class="p">))</span>
+    <span class="n">papers</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="n">paper</span> <span class="o">=</span> <span class="n">papers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Loaded paper: </span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> characters)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported input type: </span><span class="si">{</span><span class="n">input_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># LOAD SI FILE (if exists)</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="n">si_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">input_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+    <span class="n">si_path</span> <span class="o">=</span> <span class="n">find_si_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">si_path</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Found SI file: </span><span class="si">{</span><span class="n">si_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">si_text</span> <span class="o">=</span> <span class="n">load_file_text</span><span class="p">(</span><span class="n">si_path</span><span class="p">,</span> <span class="n">pdf_extractor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   SI text: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">si_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> characters&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [WARN] Failed to load SI file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># CREATE PAPER OBJECT</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">input_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+    <span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">input_path</span><span class="o">.</span><span class="n">stem</span><span class="p">,</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">input_path</span><span class="o">.</span><span class="n">stem</span><span class="p">,</span>
+        <span class="n">publication_text</span><span class="o">=</span><span class="n">paper_text</span><span class="p">,</span>
+        <span class="n">si_text</span><span class="o">=</span><span class="n">si_text</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[OK] Paper loaded successfully&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Paper ID: </span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Paper Name: </span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Main text: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> chars&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   SI text: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">si_text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> chars&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preview paper text</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PAPER TEXT PREVIEW (first 2000 chars)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">[:</span><span class="mi">2000</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-1:-Extract-Materials">
+<h2>Step 1: Extract Materials<a class="headerlink" href="#Step-1:-Extract-Materials" title="Link to this heading">#</a></h2>
+<p>Identify all materials that were synthesized in this paper.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.material_extraction.dspy_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DspyTextExtractor</span><span class="p">,</span>
+    <span class="n">make_dspy_text_extractor_signature</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.utils.dspy_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_llm_from_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_text</span>
+
+<span class="c1"># Create material extractor</span>
+<span class="n">material_sig</span> <span class="o">=</span> <span class="n">make_dspy_text_extractor_signature</span><span class="p">(</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;Extract ALL distinct material compositions that were synthesized and tested in this paper. &quot;</span>
+        <span class="s2">&quot;IMPORTANT: If the paper studies multiple variants of a material (e.g., different loadings, &quot;</span>
+        <span class="s2">&quot;dopant concentrations, or preparation conditions), list EACH variant as a separate material. &quot;</span>
+        <span class="s2">&quot;For example, if a paper studies 1%Ru/CaO, 3%Ru/CaO, and 5%Ru/CaO, list all three - &quot;</span>
+        <span class="s2">&quot;do NOT merge them into a single &#39;Ru/CaO&#39;. &quot;</span>
+        <span class="s2">&quot;Focus on materials that were actually synthesized, not just mentioned or referenced.&quot;</span>
+    <span class="p">),</span>
+    <span class="n">output_description</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;ALL distinct synthesized material compositions as a comma-separated list using chemical formulas. &quot;</span>
+        <span class="s2">&quot;Include loading percentages and promoters when specified &quot;</span>
+        <span class="s2">&quot;(e.g., &#39;1%Ru-10%K/CaO, 3%Ru-10%K/CaO, 5%Ru-10%K/CaO, 3%Ru-5%K/CaO&#39;). &quot;</span>
+        <span class="s2">&quot;Never merge variants into a single generic name.&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">material_lm</span> <span class="o">=</span> <span class="n">get_llm_from_name</span><span class="p">(</span>
+    <span class="s2">&quot;gemini-3.0-pro&quot;</span><span class="p">,</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="mi">8000</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">material_extractor</span> <span class="o">=</span> <span class="n">DspyTextExtractor</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="n">material_sig</span><span class="p">,</span> <span class="n">lm</span><span class="o">=</span><span class="n">material_lm</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting materials...&quot;</span><span class="p">)</span>
+<br/><br/><br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run material extraction</span>
+<span class="n">materials_text</span> <span class="o">=</span> <span class="n">material_extractor</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">clean_text</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">))</span>
+
+<span class="c1"># Parse into list</span>
+<span class="n">materials</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">materials_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MATERIALS FOUND (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">)</span><span class="si">}</span><span class="s2"> total)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">materials</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">mat</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-2:-Extract-Synthesis-Procedures">
+<h2>Step 2: Extract Synthesis Procedures<a class="headerlink" href="#Step-2:-Extract-Synthesis-Procedures" title="Link to this heading">#</a></h2>
+<p>For each material, extract the detailed synthesis procedure.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DspySynthesisExtractor</span><span class="p">,</span>
+    <span class="n">make_dspy_synthesis_extractor_signature</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.metrics.judge.general_synthesis_judge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DspyGeneralSynthesisJudge</span><span class="p">,</span>
+    <span class="n">make_general_synthesis_judge_signature</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># System prompt for synthesis extraction</span>
+<span class="n">SYNTHESIS_SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a helpful assistant that extracts structured synthesis procedures from scientific papers.</span>
+
+<span class="s2">IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:</span>
+<span class="s2">&#39;PVD&#39;, &#39;CVD&#39;, &#39;arc discharge&#39;, &#39;ball milling&#39;, &#39;spray pyrolysis&#39;, &#39;electrospinning&#39;,</span>
+<span class="s2">&#39;sol-gel&#39;, &#39;hydrothermal&#39;, &#39;solvothermal&#39;, &#39;precipitation&#39;, &#39;coprecipitation&#39;, &#39;combustion&#39;,</span>
+<span class="s2">&#39;microwave-assisted&#39;, &#39;sonochemical&#39;, &#39;template-directed&#39;, &#39;solid-state&#39;, &#39;flux growth&#39;,</span>
+<span class="s2">&#39;float zone &amp; Bridgman&#39;, &#39;arc melting &amp; induction melting&#39;, &#39;spark plasma sintering&#39;,</span>
+<span class="s2">&#39;electrochemical deposition&#39;, &#39;chemical bath deposition&#39;, &#39;liquid-phase epitaxy&#39;, &#39;self-assembly&#39;,</span>
+<span class="s2">&#39;atomic layer deposition&#39;, &#39;molecular beam epitaxy&#39;, &#39;pulsed laser deposition&#39;, &#39;ion implantation&#39;,</span>
+<span class="s2">&#39;lithographic patterning&#39;, &#39;wet impregnation&#39;, &#39;incipient wetness impregnation&#39;, &#39;mechanical mixing&#39;,</span>
+<span class="s2">&#39;solution-based&#39;, &#39;mechanochemical&#39;, &#39;other&#39;</span>
+
+<span class="s2">For the target_compound_type field, you MUST choose from these exact values:</span>
+<span class="s2">&#39;metals &amp; alloys&#39;, &#39;ceramics &amp; glasses&#39;, &#39;polymers &amp; soft matter&#39;, &#39;composites&#39;,</span>
+<span class="s2">&#39;semiconductors &amp; electronic&#39;, &#39;nanomaterials&#39;, &#39;two-dimensional materials&#39;,</span>
+<span class="s2">&#39;framework &amp; porous materials&#39;, &#39;biomaterials &amp; biological&#39;, &#39;liquid materials&#39;,</span>
+<span class="s2">&#39;hybrid &amp; organic-inorganic&#39;, &#39;functional materials &amp; catalysts&#39;, &#39;energy &amp; sustainability&#39;,</span>
+<span class="s2">&#39;smart &amp; responsive materials&#39;, &#39;emerging &amp; quantum materials&#39;, &#39;other&#39;</span>
+
+<span class="s2">If the exact method is not in the list, use the closest match or &#39;other&#39;.&quot;&quot;&quot;</span>
+
+<span class="c1"># Create synthesis extractor</span>
+<span class="n">synthesis_sig</span> <span class="o">=</span> <span class="n">make_dspy_synthesis_extractor_signature</span><span class="p">(</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;Extract the complete structured synthesis procedure for the specified material. &quot;</span>
+        <span class="s2">&quot;Include all steps, conditions (temperature, time, atmosphere), equipment, and precursors. &quot;</span>
+        <span class="s2">&quot;Be thorough and preserve all quantitative details.&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">synthesis_lm</span> <span class="o">=</span> <span class="n">get_llm_from_name</span><span class="p">(</span>
+    <span class="n">GEMINI_MODEL</span><span class="p">,</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="mi">32000</span><span class="p">,</span> <span class="s2">&quot;max_retries&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="n">system_prompt</span><span class="o">=</span><span class="n">SYNTHESIS_SYSTEM_PROMPT</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">synthesis_extractor</span> <span class="o">=</span> <span class="n">DspySynthesisExtractor</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="n">synthesis_sig</span><span class="p">,</span> <span class="n">lm</span><span class="o">=</span><span class="n">synthesis_lm</span><span class="p">)</span>
+
+<span class="c1"># Create judge</span>
+<span class="n">judge_lm</span> <span class="o">=</span> <span class="n">get_llm_from_name</span><span class="p">(</span>
+    <span class="n">GEMINI_MODEL</span><span class="p">,</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">judge_sig</span> <span class="o">=</span> <span class="n">make_general_synthesis_judge_signature</span><span class="p">()</span>
+<span class="n">judge</span> <span class="o">=</span> <span class="n">DspyGeneralSynthesisJudge</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="n">judge_sig</span><span class="p">,</span> <span class="n">lm</span><span class="o">=</span><span class="n">judge_lm</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] Synthesis extractor and judge initialized&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract synthesis for each material</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.models.paper</span><span class="w"> </span><span class="kn">import</span> <span class="n">SynthesisEntry</span>
+
+<span class="n">all_syntheses</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">text_for_llm</span> <span class="o">=</span> <span class="n">clean_text</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">material</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">materials</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EXTRACTING SYNTHESIS </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Extract synthesis</span>
+        <span class="n">synthesis</span> <span class="o">=</span> <span class="n">synthesis_extractor</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="p">(</span><span class="n">text_for_llm</span><span class="p">,</span> <span class="n">material</span><span class="p">))</span>
+
+        <span class="c1"># Evaluate</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">evaluation</span> <span class="o">=</span> <span class="n">judge</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">text_for_llm</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()),</span> <span class="n">material</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [OK] Evaluation score: </span><span class="si">{</span><span class="n">evaluation</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">overall_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [WARN] Judge failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">evaluation</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">all_syntheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SynthesisEntry</span><span class="p">(</span>
+            <span class="n">material</span><span class="o">=</span><span class="n">material</span><span class="p">,</span>
+            <span class="n">synthesis</span><span class="o">=</span><span class="n">synthesis</span><span class="p">,</span>
+            <span class="n">evaluation</span><span class="o">=</span><span class="n">evaluation</span><span class="p">,</span>
+        <span class="p">))</span>
+
+        <span class="c1"># Show synthesis summary</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   Target: </span><span class="si">{</span><span class="n">synthesis</span><span class="o">.</span><span class="n">target_compound</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Type: </span><span class="si">{</span><span class="n">synthesis</span><span class="o">.</span><span class="n">target_compound_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Method: </span><span class="si">{</span><span class="n">synthesis</span><span class="o">.</span><span class="n">synthesis_method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Starting materials: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">starting_materials</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Steps: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [ERROR] Extraction failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">all_syntheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SynthesisEntry</span><span class="p">(</span>
+            <span class="n">material</span><span class="o">=</span><span class="n">material</span><span class="p">,</span>
+            <span class="n">synthesis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">[OK] Extracted synthesis for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_syntheses</span><span class="p">)</span><span class="si">}</span><span class="s2"> materials&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detailed view of first synthesis</span>
+<span class="k">if</span> <span class="n">all_syntheses</span> <span class="ow">and</span> <span class="n">all_syntheses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">synthesis</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">all_syntheses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">synthesis</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DETAILED SYNTHESIS: </span><span class="si">{</span><span class="n">all_syntheses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">material</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Starting Materials:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">starting_materials</span><span class="p">:</span>
+        <span class="n">amt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mat</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">mat</span><span class="o">.</span><span class="n">unit</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">amount</span> <span class="k">else</span> <span class="s2">&quot;N/A&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">mat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">amt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Synthesis Steps:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Step </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">step_number</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">description</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;     </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">conditions</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">conditions</span>
+            <span class="n">cond_parts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">temperature</span><span class="p">:</span> <span class="n">cond_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">temperature</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">temp_unit</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;C&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span> <span class="n">cond_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">duration</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">time_unit</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;h&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">atmosphere</span><span class="p">:</span> <span class="n">cond_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">atmosphere</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cond_parts</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     Conditions: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cond_parts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-3:-Extract-Figures">
+<h2>Step 3: Extract Figures<a class="headerlink" href="#Step-3:-Extract-Figures" title="Link to this heading">#</a></h2>
+<p>Find and segment all figures in the paper into subfigures.</p>
+<p>Two segmentation backends are available:</p>
+<ul class="simple">
+<li><p><strong>Florence-2</strong>: Uses Florence-2 with LoRA adapter (single model, faster)</p></li>
+<li><p><strong>DINO</strong>: Uses Grounding DINO + ResNet classifier (more granular classes)</p></li>
+</ul>
+<p>All figures will be passed to Claude VLM for plot data extraction - Claude will determine which figures contain extractable numerical data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">SKIP_FIGURES</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] Skipping figure extraction (SKIP_FIGURES=True)&quot;</span><span class="p">)</span>
+    <span class="n">figures</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.figure_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="n">FigureExtractorMarkdown</span>
+
+    <span class="c1"># ==============================================================================</span>
+    <span class="c1"># CHOOSE SEGMENTATION BACKEND</span>
+    <span class="c1"># ==============================================================================</span>
+
+    <span class="c1"># Option 1: Florence-2 with LoRA (recommended - single model, faster)</span>
+    <span class="n">extractor</span> <span class="o">=</span> <span class="n">FigureExtractorMarkdown</span><span class="p">(</span>
+        <span class="n">segmenter</span><span class="o">=</span><span class="s2">&quot;florence&quot;</span><span class="p">,</span>
+        <span class="n">florence_repo_id</span><span class="o">=</span><span class="s2">&quot;amayuelas/plot-visualization-florence-2-lora-32&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting and segmenting figures using Florence-2...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Option 2: DINO + ResNet (more granular figure classes)</span>
+    <span class="c1"># extractor = FigureExtractorMarkdown(segmenter=&quot;dino&quot;)</span>
+    <span class="c1"># print(&quot;Extracting and segmenting figures using DINO...&quot;)</span>
+
+    <span class="c1"># ==============================================================================</span>
+
+    <span class="n">figures</span> <span class="o">=</span> <span class="n">extractor</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FIGURES FOUND (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">figures</span><span class="p">)</span><span class="si">}</span><span class="s2"> subfigures)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Note: All figures will be sent to Claude VLM for plot extraction&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fig</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">figures</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;Figure </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Debug: Check context for each figure</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: FIGURE CONTEXT INSPECTION&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fig</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">figures</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Figure </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;Unknown&#39;</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Context BEFORE (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="p">[</span><span class="o">-</span><span class="mi">300</span><span class="p">:]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">300</span> <span class="k">else</span> <span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Context AFTER (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="p">[:</span><span class="mi">300</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">300</span> <span class="k">else</span> <span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Step-4:-Extract-Plot-Data">
+<h2>Step 4: Extract Plot Data<a class="headerlink" href="#Step-4:-Extract-Plot-Data" title="Link to this heading">#</a></h2>
+<p>Use Claude VLM to extract numerical data from quantitative plots.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">SKIP_FIGURES</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">figures</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] Skipping plot data extraction&quot;</span><span class="p">)</span>
+    <span class="n">plots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">plot_figures</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">ClaudeLinePlotDataExtractor</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.models.figure</span><span class="w"> </span><span class="kn">import</span> <span class="n">FigureInfoWithPaper</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.utils.figure_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_text_from_images</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting data from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">figures</span><span class="p">)</span><span class="si">}</span><span class="s2"> figures using Claude VLM...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Claude will determine which figures contain extractable plot data)&quot;</span><span class="p">)</span>
+
+    <span class="n">plot_extractor</span> <span class="o">=</span> <span class="n">ClaudeLinePlotDataExtractor</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">CLAUDE_MODEL</span><span class="p">)</span>
+
+    <span class="n">plots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">plot_figures</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fig</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">figures</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Processing figure </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">figures</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;Figure </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_class</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+        <span class="n">fig_with_paper</span> <span class="o">=</span> <span class="n">FigureInfoWithPaper</span><span class="p">(</span>
+            <span class="n">base64_data</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">base64_data</span><span class="p">,</span>
+            <span class="n">alt_text</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">alt_text</span><span class="p">,</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">context_before</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="p">,</span>
+            <span class="n">context_after</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="p">,</span>
+            <span class="n">figure_reference</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="p">,</span>
+            <span class="n">figure_class</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_class</span><span class="p">,</span>
+            <span class="n">quantitative</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">quantitative</span><span class="p">,</span>
+            <span class="n">paper_text</span><span class="o">=</span><span class="n">clean_text_from_images</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">),</span>
+            <span class="n">si_text</span><span class="o">=</span><span class="n">paper</span><span class="o">.</span><span class="n">si_text</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">plot_data</span> <span class="o">=</span> <span class="n">plot_extractor</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">fig_with_paper</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">plot_data</span> <span class="ow">and</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="p">:</span>
+                <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot_data</span><span class="p">)</span>
+                <span class="n">plot_figures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    [OK] Extracted </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_data</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="p">)</span><span class="si">}</span><span class="s2"> series&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;       Series: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">plot_data</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    [--] No extractable data (not a quantitative plot)&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    [ERROR] Failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[OK] Extracted data from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="si">}</span><span class="s2"> plots out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">figures</span><span class="p">)</span><span class="si">}</span><span class="s2"> figures&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show plot details</span>
+<span class="k">if</span> <span class="n">plots</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EXTRACTED PLOT DATA SUMMARY&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">fig</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">plots</span><span class="p">,</span> <span class="n">plot_figures</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Plot </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Title: </span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  X-axis: </span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">x_axis_label</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">x_axis_unit</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Y-axis: </span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">y_left_axis_label</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">y_left_axis_unit</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Series (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plot</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="p">)</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">series_name</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">in</span> <span class="n">plot</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    - </span><span class="si">{</span><span class="n">series_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-5:-Configure-Plot-Filtering-(Optional)">
+<h2>Step 5: Configure Plot Filtering (Optional)<a class="headerlink" href="#Step-5:-Configure-Plot-Filtering-(Optional)" title="Link to this heading">#</a></h2>
+<p>Configure which plots should be included in performance linking based on axis characteristics.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.config.plot_filter_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlotFilterConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.performance_linking.plot_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlotFilter</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># CONFIGURE PLOT FILTERING</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="c1"># Option 1: Default catalysis config (temperature x-axis, conversion/yield y-axis)</span>
+<span class="c1"># Filters for plots showing performance metrics (conversion, yield, selectivity)</span>
+<span class="c1"># against temperature - the most common format in catalysis papers.</span>
+<span class="n">filter_config</span> <span class="o">=</span> <span class="n">PlotFilterConfig</span><span class="o">.</span><span class="n">for_catalysis</span><span class="p">()</span>
+
+<span class="c1"># Option 2: Electrochemistry config (potential x-axis, current/capacitance y-axis)</span>
+<span class="c1"># filter_config = PlotFilterConfig.for_electrochemistry()</span>
+
+<span class="c1"># Option 3: No filtering (link all plots)</span>
+<span class="c1"># filter_config = PlotFilterConfig.no_filter()</span>
+
+<span class="c1"># Option 4: Custom config</span>
+<span class="c1"># filter_config = PlotFilterConfig(</span>
+<span class="c1">#     x_axis_labels=[&quot;temperature&quot;, &quot;temp&quot;, &quot;time&quot;],  # Substring matching</span>
+<span class="c1">#     x_axis_units=[&quot;k&quot;, &quot;c&quot;, &quot;h&quot;, &quot;min&quot;],</span>
+<span class="c1">#     y_axis_keywords=[&quot;conversion&quot;, &quot;yield&quot;, &quot;selectivity&quot;],</span>
+<span class="c1">#     y_axis_units=[&quot;%&quot;],</span>
+<span class="c1"># )</span>
+
+<span class="n">plot_filter</span> <span class="o">=</span> <span class="n">PlotFilter</span><span class="p">(</span><span class="n">filter_config</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plot Filter Configuration:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   X-axis labels (substring match): </span><span class="si">{</span><span class="n">filter_config</span><span class="o">.</span><span class="n">x_axis_labels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   X-axis units: </span><span class="si">{</span><span class="n">filter_config</span><span class="o">.</span><span class="n">x_axis_units</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Y-axis keywords: </span><span class="si">{</span><span class="n">filter_config</span><span class="o">.</span><span class="n">y_axis_keywords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Y-axis units: </span><span class="si">{</span><span class="n">filter_config</span><span class="o">.</span><span class="n">y_axis_units</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply filtering</span>
+<span class="k">if</span> <span class="n">plots</span><span class="p">:</span>
+    <span class="n">relevant_plots</span><span class="p">,</span> <span class="n">skip_counts</span> <span class="o">=</span> <span class="n">plot_filter</span><span class="o">.</span><span class="n">filter_plots</span><span class="p">(</span><span class="n">plots</span><span class="p">,</span> <span class="n">log_skipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PLOT FILTERING RESULTS&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total plots: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Relevant plots: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">relevant_plots</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Skipped (not relevant x-axis): </span><span class="si">{</span><span class="n">skip_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;not_relevant_x&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Skipped (not relevant y-axis): </span><span class="si">{</span><span class="n">skip_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;not_relevant_y&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Skipped (no series): </span><span class="si">{</span><span class="n">skip_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;no_series&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Relevant plots for linking:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">plot</span> <span class="ow">in</span> <span class="n">relevant_plots</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Plot </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plot</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="p">)</span><span class="si">}</span><span class="s2"> series)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] No plots to filter&quot;</span><span class="p">)</span>
+    <span class="n">relevant_plots</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-6:-Link-Series-to-Materials">
+<h2>Step 6: Link Series to Materials<a class="headerlink" href="#Step-6:-Link-Series-to-Materials" title="Link to this heading">#</a></h2>
+<p>Use LLM to match plot series names to extracted materials.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">SKIP_FIGURES</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">relevant_plots</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] Skipping performance linking&quot;</span><span class="p">)</span>
+    <span class="n">plot_mappings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">linking_stats</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">dspy</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.performance_linking.series_material_linker</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">SeriesMaterialLinker</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.transformers.performance_linking.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinkingInput</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.models.performance</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlotMaterialMapping</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Linking plot series to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">)</span><span class="si">}</span><span class="s2"> materials...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize linker</span>
+    <span class="n">gemini_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GEMINI_API_KEY&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">linker_lm</span> <span class="o">=</span> <span class="n">dspy</span><span class="o">.</span><span class="n">LM</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;gemini/</span><span class="si">{</span><span class="n">LINKER_MODEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">gemini_key</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">series_linker</span> <span class="o">=</span> <span class="n">SeriesMaterialLinker</span><span class="p">(</span><span class="n">lm</span><span class="o">=</span><span class="n">linker_lm</span><span class="p">)</span>
+
+    <span class="n">plot_mappings</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">plot</span> <span class="ow">in</span> <span class="n">relevant_plots</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_figures</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">series_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plot</span><span class="o">.</span><span class="n">name_to_coordinates</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Linking plot </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">series_names</span><span class="p">)</span><span class="si">}</span><span class="s2"> series)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Series: </span><span class="si">{</span><span class="n">series_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">context_before</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fig</span><span class="o">.</span><span class="n">context_after</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">plot_meta</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s2">&quot;x_axis_label&quot;</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">x_axis_label</span><span class="p">,</span>
+            <span class="s2">&quot;x_axis_unit&quot;</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">x_axis_unit</span><span class="p">,</span>
+            <span class="s2">&quot;y_left_axis_label&quot;</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">y_left_axis_label</span><span class="p">,</span>
+            <span class="s2">&quot;y_left_axis_unit&quot;</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">y_left_axis_unit</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Call linker</span>
+        <span class="n">linking_input</span> <span class="o">=</span> <span class="n">LinkingInput</span><span class="p">(</span>
+            <span class="n">materials</span><span class="o">=</span><span class="n">materials</span><span class="p">,</span>
+            <span class="n">series_names</span><span class="o">=</span><span class="n">series_names</span><span class="p">,</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+            <span class="n">plot_metadata</span><span class="o">=</span><span class="n">plot_meta</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">validated_mappings</span> <span class="o">=</span> <span class="n">series_linker</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">linking_input</span><span class="p">)</span>
+
+        <span class="c1"># Determine unmatched</span>
+        <span class="n">matched_series</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">series_name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">validated_mappings</span><span class="p">}</span>
+        <span class="n">unmatched</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">series_names</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">matched_series</span><span class="p">]</span>
+
+        <span class="n">plot_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PlotMaterialMapping</span><span class="p">(</span>
+            <span class="n">plot_index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+            <span class="n">figure_reference</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">figure_reference</span><span class="p">,</span>
+            <span class="n">mappings</span><span class="o">=</span><span class="n">validated_mappings</span><span class="p">,</span>
+            <span class="n">unmatched_series</span><span class="o">=</span><span class="n">unmatched</span><span class="p">,</span>
+        <span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    [OK] Matched: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">validated_mappings</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">validated_mappings</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;       &#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">series_name</span><span class="si">}</span><span class="s2">&#39; -&gt; &#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">material_name</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">confidence</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">unmatched</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    [WARN] Unmatched: </span><span class="si">{</span><span class="n">unmatched</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[OK] Linking complete&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-7:-Aggregate-Performance-Data">
+<h2>Step 7: Aggregate Performance Data<a class="headerlink" href="#Step-7:-Aggregate-Performance-Data" title="Link to this heading">#</a></h2>
+<p>Combine all performance data per material.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.utils.performance_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">aggregate_all_materials_performance</span>
+
+<span class="k">if</span> <span class="n">plot_mappings</span> <span class="ow">and</span> <span class="n">plots</span><span class="p">:</span>
+    <span class="n">performance_data</span> <span class="o">=</span> <span class="n">aggregate_all_materials_performance</span><span class="p">(</span><span class="n">materials</span><span class="p">,</span> <span class="n">plot_mappings</span><span class="p">,</span> <span class="n">plots</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PER-MATERIAL PERFORMANCE SUMMARY&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">materials</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">performance_data</span><span class="p">:</span>
+            <span class="n">perf</span> <span class="o">=</span> <span class="n">performance_data</span><span class="p">[</span><span class="n">mat</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">mat</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">perf</span><span class="o">.</span><span class="n">plot_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> performance entries&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">perf</span><span class="o">.</span><span class="n">plot_data</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">plot_title</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2"> / series &#39;</span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">series_name</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">y_axis_label</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">y_axis_unit</span><span class="si">}</span><span class="s2">]), &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">coordinates</span><span class="p">)</span><span class="si">}</span><span class="s2"> points, confidence: </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">confidence</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">mat</span><span class="si">}</span><span class="s2">: (no performance data linked)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">performance_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] No performance data to aggregate&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-7.5:-Evaluate-Linking-Quality-(LLM-Judge)">
+<h2>Step 7.5: Evaluate Linking Quality (LLM Judge)<a class="headerlink" href="#Step-7.5:-Evaluate-Linking-Quality-(LLM-Judge)" title="Link to this heading">#</a></h2>
+<p>Use an LLM judge to evaluate the quality of the synthesis-to-performance linking. Scores 4 criteria (1-5) and flags 9 specific failure modes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.metrics.judge.linking_judge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DspyLinkingJudge</span><span class="p">,</span>
+    <span class="n">make_linking_judge_signature</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">linking_evaluation</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">plot_mappings</span> <span class="ow">and</span> <span class="n">performance_data</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluating linking quality with LLM judge...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize linking judge (same LM as synthesis judge)</span>
+    <span class="n">linking_judge_lm</span> <span class="o">=</span> <span class="n">get_llm_from_name</span><span class="p">(</span>
+        <span class="n">GEMINI_MODEL</span><span class="p">,</span>
+        <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">linking_judge_sig</span> <span class="o">=</span> <span class="n">make_linking_judge_signature</span><span class="p">()</span>
+    <span class="n">linking_judge</span> <span class="o">=</span> <span class="n">DspyLinkingJudge</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="n">linking_judge_sig</span><span class="p">,</span> <span class="n">lm</span><span class="o">=</span><span class="n">linking_judge_lm</span><span class="p">)</span>
+
+    <span class="c1"># Prepare inputs</span>
+    <span class="n">synthesis_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">material</span><span class="p">,</span>
+                <span class="s2">&quot;synthesis&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">synthesis</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">synthesis</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">all_syntheses</span>
+        <span class="p">],</span>
+        <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plot_data_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">plots</span><span class="p">],</span>
+        <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">linking_output_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">plot_mappings</span><span class="p">],</span>
+            <span class="s2">&quot;performance_per_material&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">performance_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">linking_evaluation</span> <span class="o">=</span> <span class="n">linking_judge</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">clean_text</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">publication_text</span><span class="p">),</span> <span class="n">synthesis_json</span><span class="p">,</span> <span class="n">plot_data_json</span><span class="p">,</span> <span class="n">linking_output_json</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LINKING EVALUATION RESULTS&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">scores</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Material Identity Match:       </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">material_identity_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Performance Data Correctness:  </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">performance_data_correctness_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Completeness:                  </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">completeness_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Format &amp; Structure:            </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">format_structure_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Overall:                       </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">overall_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Confidence:                    </span><span class="si">{</span><span class="n">linking_evaluation</span><span class="o">.</span><span class="n">confidence_level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">active_flags</span> <span class="o">=</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">failure_flags</span><span class="o">.</span><span class="n">active_flags</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">active_flags</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Failure flags: </span><span class="si">{</span><span class="n">active_flags</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Failure flags: None&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">missing_links</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Missing links:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ml</span> <span class="ow">in</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">missing_links</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    - </span><span class="si">{</span><span class="n">ml</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">spurious_links</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Spurious links:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sl</span> <span class="ow">in</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">spurious_links</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    - </span><span class="si">{</span><span class="n">sl</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">improvement_suggestions</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Suggestions:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">improvement_suggestions</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    - </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [WARN] Linking judge failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[SKIP] No performance data to evaluate&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-8:-Build-Final-Results">
+<h2>Step 8: Build Final Results<a class="headerlink" href="#Step-8:-Build-Final-Results" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Combine synthesis + performance + linking evaluation</span>
+<span class="n">final_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">all_syntheses</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">material</span><span class="p">,</span>
+        <span class="s2">&quot;synthesis&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">synthesis</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">synthesis</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;evaluation&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">evaluation</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">evaluation</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;performance&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">performance_data</span><span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">material</span><span class="p">]</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">material</span> <span class="ow">in</span> <span class="n">performance_data</span>
+            <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;linking_evaluation&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">if</span> <span class="n">linking_evaluation</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+    <span class="n">final_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># Summary</span>
+<span class="n">materials_with_perf</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">materials</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">performance_data</span><span class="p">]</span>
+<span class="n">materials_without_perf</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">materials</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">performance_data</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FINAL SUMMARY&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Paper: </span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total materials: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Materials with synthesis: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">final_results</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;synthesis&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Materials with performance: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials_with_perf</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Materials without performance: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">materials_without_perf</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">plots</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total plots extracted: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Plots linked: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_mappings</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">linking_evaluation</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Linking quality score: </span><span class="si">{</span><span class="n">linking_evaluation</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">overall_score</span><span class="si">}</span><span class="s2">/5.0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show one complete result</span>
+<span class="k">if</span> <span class="n">final_results</span><span class="p">:</span>
+    <span class="c1"># Find a result with both synthesis and performance</span>
+    <span class="n">example</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">final_results</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;synthesis&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]),</span> <span class="n">final_results</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EXAMPLE RESULT: </span><span class="si">{</span><span class="n">example</span><span class="p">[</span><span class="s1">&#39;material&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)[:</span><span class="mi">3000</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">3000</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... (truncated)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-9:-Save-Results">
+<h2>Step 9: Save Results<a class="headerlink" href="#Step-9:-Save-Results" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_synthesis.utils.performance_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">sanitize_filename</span>
+
+<span class="c1"># Create output directory</span>
+<span class="n">paper_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">paper</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">paper_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Save individual material files (without linking_evaluation — that goes in summary)</span>
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">final_results</span><span class="p">:</span>
+    <span class="n">mat_result</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;linking_evaluation&quot;</span><span class="p">}</span>
+    <span class="n">mat_name</span> <span class="o">=</span> <span class="n">sanitize_filename</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;material&quot;</span><span class="p">])</span>
+    <span class="n">mat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mat_name</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mat_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mat_result</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="c1"># Save plot mappings</span>
+<span class="k">if</span> <span class="n">plot_mappings</span><span class="p">:</span>
+    <span class="n">mappings_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper_dir</span><span class="p">,</span> <span class="s2">&quot;performance_mappings.json&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mappings_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">plot_mappings</span><span class="p">],</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Base summary content (shared between LLM and human versions)</span>
+<span class="n">base_summary</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;paper_id&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="s2">&quot;paper_name&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="s2">&quot;total_materials&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">),</span>
+    <span class="s2">&quot;materials_with_performance&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">materials_with_perf</span><span class="p">),</span>
+    <span class="s2">&quot;materials_without_performance&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">materials_without_perf</span><span class="p">),</span>
+    <span class="s2">&quot;materials_list&quot;</span><span class="p">:</span> <span class="n">materials</span><span class="p">,</span>
+    <span class="s2">&quot;materials_with_performance_list&quot;</span><span class="p">:</span> <span class="n">materials_with_perf</span><span class="p">,</span>
+    <span class="s2">&quot;materials_without_performance_list&quot;</span><span class="p">:</span> <span class="n">materials_without_perf</span><span class="p">,</span>
+    <span class="s2">&quot;total_plots_extracted&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span> <span class="k">if</span> <span class="n">plots</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;plots_linked&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">plot_mappings</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1"># --- linking_summary_llm.json: summary + LLM evaluation ---</span>
+<span class="n">llm_summary</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">base_summary</span><span class="p">}</span>
+<span class="k">if</span> <span class="n">linking_evaluation</span><span class="p">:</span>
+    <span class="n">llm_summary</span><span class="p">[</span><span class="s2">&quot;linking_evaluation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">linking_evaluation</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">llm_summary</span><span class="p">[</span><span class="s2">&quot;linking_evaluation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">llm_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper_dir</span><span class="p">,</span> <span class="s2">&quot;linking_summary_llm.json&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">llm_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">llm_summary</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="c1"># --- linking_summary_human.json: summary + empty evaluation for annotation ---</span>
+<span class="n">human_summary</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">base_summary</span><span class="p">}</span>
+<span class="n">human_summary</span><span class="p">[</span><span class="s2">&quot;linking_evaluation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;scores&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;material_identity_score&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;material_identity_reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;performance_data_correctness_score&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;performance_data_correctness_reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;completeness_score&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;completeness_reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;format_structure_score&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;format_structure_reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;overall_score&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;overall_reasoning&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;failure_flags&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;f1_name_mismatch&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f2_one_to_many_synthesis&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f3_many_to_one_figure&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f4_sample_code_failure&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f5_precursor_vs_product&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f6_characterization_confusion&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f7_dual_axis_error&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f8_false_negative&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;f9_false_positive&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;confidence_level&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;missing_links&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;spurious_links&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;improvement_suggestions&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">human_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper_dir</span><span class="p">,</span> <span class="s2">&quot;linking_summary_human.json&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">human_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">human_summary</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Results saved to: </span><span class="si">{</span><span class="n">paper_dir</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">final_results</span><span class="p">)</span><span class="si">}</span><span class="s2"> material files&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - performance_mappings.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - linking_summary_llm.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - linking_summary_human.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="Done!">
+<h2>Done!<a class="headerlink" href="#Done!" title="Link to this heading">#</a></h2>
+<p>You have successfully extracted:</p>
+<ul class="simple">
+<li><p><strong>Materials</strong> from the paper</p></li>
+<li><p><strong>Synthesis procedures</strong> for each material</p></li>
+<li><p><strong>Performance data</strong> from plots, linked to specific materials</p></li>
+</ul>
+<p>Check the output directory for the saved results.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="catalysis_map_notebook.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Map of Science — Figure Workshop</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="keyword_search_explorer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Keyword Search Explorer</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Setup:-Configuration">Setup: Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-0:-Load-Paper-Text">Step 0: Load Paper Text</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-1:-Extract-Materials">Step 1: Extract Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-2:-Extract-Synthesis-Procedures">Step 2: Extract Synthesis Procedures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-3:-Extract-Figures">Step 3: Extract Figures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-4:-Extract-Plot-Data">Step 4: Extract Plot Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-5:-Configure-Plot-Filtering-(Optional)">Step 5: Configure Plot Filtering (Optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-6:-Link-Series-to-Materials">Step 6: Link Series to Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-7:-Aggregate-Performance-Data">Step 7: Aggregate Performance Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-7.5:-Evaluate-Linking-Quality-(LLM-Judge)">Step 7.5: Evaluate Linking Quality (LLM Judge)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-8:-Build-Final-Results">Step 8: Build Final Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-9:-Save-Results">Step 9: Save Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Done!">Done!</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+# Tutorials
+
+Step-by-step guides to help you learn LeMat-Synth from scratch.
+
+Tutorials are **learning-oriented** -- they walk you through a complete workflow so you can understand the system hands-on.
+
+## Available Tutorials
+
+- [Getting Started](getting_started.md) -- Install the toolbox, configure API keys, and run your first extraction
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+
+getting_started
+```
+
+## Notebooks
+
+Interactive Jupyter notebooks with real data analysis and visualization.
+
+```{toctree}
+:maxdepth: 1
+:hidden:
+
+../notebooks/Fig2_Dataset_Statistics
+../notebooks/Fig3_Synthesis_Procedure
+../notebooks/catalysis_map_notebook
+../notebooks/catalysis_synthesis_with_performance
+../notebooks/keyword_search_explorer
+../notebooks/superconductivity_tc_extraction
+../notebooks/superconductivity_tc_extraction_plus_snippet
+../notebooks/synthesis_with_performance
+../notebooks/visualisation_tc
+../notebooks/visualisation_tc_with_human_annotation
+```

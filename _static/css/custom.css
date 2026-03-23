@@ -1,0 +1,49 @@
+/* Custom styles for LeMaterial-Synthesis Sphinx docs */
+
+/* Logo sizing in navbar */
+.navbar-brand img {
+    max-height: 30px;
+    width: auto;
+}
+
+/* Code block styling */
+div.highlight pre {
+    border-radius: 6px;
+    font-size: 0.875em;
+}
+
+/* Table styling */
+table.docutils {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.docutils td,
+table.docutils th {
+    padding: 8px 12px;
+}
+
+/* Hero logo - light/dark switching */
+html[data-theme="light"] .only-dark {
+    display: none !important;
+}
+
+html[data-theme="dark"] .only-light {
+    display: none !important;
+}
+
+.only-light, .only-dark {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Card link styling */
+.sd-card .sd-card-body a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sd-card .sd-card-body a:hover {
+    text-decoration: underline;
+}

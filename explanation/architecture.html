@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Architecture &amp; Pipeline &#8212; LeMaterial-Synthesis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=525a56a9" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/architecture';</script>
+    <link rel="icon" href="../_static/lematerial-icon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reference" href="../reference/index.html" />
+    <link rel="prev" title="What is LeMat-Synth?" href="what_is_lemat_synth.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/lematerial-logo-light.png" class="logo__image only-light" alt="LeMaterial-Synthesis  documentation - Home"/>
+    <img src="../_static/lematerial-logo-dark.png" class="logo__image only-dark pst-js-only" alt="LeMaterial-Synthesis  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is_lemat_synth.html">What is LeMat-Synth?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Architecture &amp; Pipeline</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Explanation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Architecture &amp; Pipeline</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="architecture-pipeline">
+<h1>Architecture &amp; Pipeline<a class="headerlink" href="#architecture-pipeline" title="Link to this heading">#</a></h1>
+<p>LeMat-Synth uses a modular pipeline architecture built on <a class="reference external" href="https://hydra.cc/">Hydra</a> for configuration management and <a class="reference external" href="https://dspy.ai/">DSPy</a> for structured LLM interactions.</p>
+<section id="pipeline-overview">
+<h2>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">#</a></h2>
+<img alt="LeMat-Synth pipeline" src="../_images/pipeline-overview.png" />
+</section>
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading">#</a></h2>
+<section id="data-loader">
+<h3>Data Loader<a class="headerlink" href="#data-loader" title="Link to this heading">#</a></h3>
+<p>Loads papers from various sources via a common <code class="docutils literal notranslate"><span class="pre">PaperLoaderInterface</span></code>:</p>
+<ul class="simple">
+<li><p><strong>HFLoader</strong> – loads from HuggingFace datasets (<code class="docutils literal notranslate"><span class="pre">LeMaterial/LeMat-Synth-Papers</span></code>)</p></li>
+<li><p><strong>FSPaperLoader</strong> – loads from local or cloud filesystem via <code class="docutils literal notranslate"><span class="pre">fsspec</span></code></p></li>
+<li><p><strong>AnnotationHFLoader</strong> – loads annotated papers for evaluation</p></li>
+</ul>
+<p>Each paper is represented as a <code class="docutils literal notranslate"><span class="pre">Paper</span></code> object containing <code class="docutils literal notranslate"><span class="pre">publication_text</span></code>, <code class="docutils literal notranslate"><span class="pre">si_text</span></code> (supplementary info), <code class="docutils literal notranslate"><span class="pre">name</span></code>, and <code class="docutils literal notranslate"><span class="pre">id</span></code>.</p>
+</section>
+<section id="material-extraction">
+<h3>Material Extraction<a class="headerlink" href="#material-extraction" title="Link to this heading">#</a></h3>
+<p>Identifies synthesized materials from paper text using the <code class="docutils literal notranslate"><span class="pre">DspyTextExtractor</span></code>. Takes full paper text as input, returns comma-separated chemical formulas (e.g., <code class="docutils literal notranslate"><span class="pre">Sr3(P3O9)2*7H2O,</span> <span class="pre">LiH2PO3</span></code>).</p>
+<p>Uses temperature escalation retry strategy: <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">0.3,</span> <span class="pre">0.5]</span></code> – if deterministic extraction fails, the model is given progressively more freedom.</p>
+</section>
+<section id="synthesis-extraction">
+<h3>Synthesis Extraction<a class="headerlink" href="#synthesis-extraction" title="Link to this heading">#</a></h3>
+<p>For each identified material, <code class="docutils literal notranslate"><span class="pre">DspySynthesisExtractor</span></code> extracts a structured <code class="docutils literal notranslate"><span class="pre">GeneralSynthesisOntology</span></code>:</p>
+<ul class="simple">
+<li><p><strong>Target compound</strong> – name, formula, and type (16 categories: metals, ceramics, polymers, nanomaterials, etc.)</p></li>
+<li><p><strong>Synthesis method</strong> – one of 35+ methods (PVD, CVD, sol-gel, hydrothermal, etc.)</p></li>
+<li><p><strong>Starting materials</strong> – name, vendor, amount, unit, purity</p></li>
+<li><p><strong>Process steps</strong> – ordered steps with action (add/mix/heat/cool/filter/etc.), materials, equipment, and conditions</p></li>
+<li><p><strong>Equipment</strong> – name, vendor, settings</p></li>
+<li><p><strong>Conditions</strong> – temperature, duration, pressure, atmosphere, stirring, pH</p></li>
+</ul>
+</section>
+<section id="judge-evaluation">
+<h3>Judge Evaluation<a class="headerlink" href="#judge-evaluation" title="Link to this heading">#</a></h3>
+<p>LLM-based quality assessment via <code class="docutils literal notranslate"><span class="pre">DspyGeneralSynthesisJudge</span></code>. Each extraction is scored 1-5 across seven criteria:</p>
+<ol class="arabic simple">
+<li><p><strong>Structural Completeness</strong> – all synthesis components captured</p></li>
+<li><p><strong>Material Extraction</strong> – correct names, quantities, units, purities</p></li>
+<li><p><strong>Process Steps</strong> – accurate order and action classification</p></li>
+<li><p><strong>Equipment Extraction</strong> – all equipment identified</p></li>
+<li><p><strong>Conditions Extraction</strong> – temperature, time, atmosphere, pressure</p></li>
+<li><p><strong>Semantic Accuracy</strong> – scientific meaning preserved</p></li>
+<li><p><strong>Format Compliance</strong> – ontology schema adherence</p></li>
+</ol>
+<p>A separate <code class="docutils literal notranslate"><span class="pre">DspyLinkingJudge</span></code> evaluates synthesis-to-performance-data linking with 4 scores and 9 failure mode flags.</p>
+</section>
+<section id="result-save">
+<h3>Result Save<a class="headerlink" href="#result-save" title="Link to this heading">#</a></h3>
+<p>Stores results to filesystem (local or GCS) via <code class="docutils literal notranslate"><span class="pre">SynthesisFSResultGather</span></code>. Output includes <code class="docutils literal notranslate"><span class="pre">result.json</span></code>, raw texts, and cost reports per paper.</p>
+</section>
+</section>
+<section id="multi-llm-ensemble">
+<h2>Multi-LLM Ensemble<a class="headerlink" href="#multi-llm-ensemble" title="Link to this heading">#</a></h2>
+<p>All extraction and evaluation stages support a multi-LLM mode where the same task is run across multiple models (e.g., Claude, Gemini, Qwen, DeepSeek) for robustness. Results are aggregated by <code class="docutils literal notranslate"><span class="pre">MultiLLMResultGather</span></code>.</p>
+</section>
+<section id="technology-stack">
+<h2>Technology Stack<a class="headerlink" href="#technology-stack" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Technology</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Configuration</p></td>
+<td><p><a class="reference external" href="https://hydra.cc/">Hydra</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>LLM Orchestration</p></td>
+<td><p><a class="reference external" href="https://dspy.ai/">DSPy</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Multi-provider LLM access</p></td>
+<td><p><a class="reference external" href="https://docs.litellm.ai/">LiteLLM</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Data models</p></td>
+<td><p><a class="reference external" href="https://docs.pydantic.dev/">Pydantic</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Filesystem abstraction</p></td>
+<td><p><a class="reference external" href="https://filesystem-spec.readthedocs.io/">fsspec</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>PDF extraction</p></td>
+<td><p><a class="reference external" href="https://github.com/DS4SD/docling">Docling</a>, <a class="reference external" href="https://docs.mistral.ai/">Mistral OCR</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Figure classification</p></td>
+<td><p>ResNet-152, DINO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="configuration-flow">
+<h2>Configuration Flow<a class="headerlink" href="#configuration-flow" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Hydra loads <code class="docutils literal notranslate"><span class="pre">examples/config/config.yaml</span></code></p></li>
+<li><p>Composes defaults for each pipeline stage</p></li>
+<li><p>Each config uses <code class="docutils literal notranslate"><span class="pre">_target_</span></code> field for class instantiation</p></li>
+<li><p>LLM configs are nested under <code class="docutils literal notranslate"><span class="pre">lm</span></code> in each extractor/judge</p></li>
+<li><p>System prompts loaded from <code class="docutils literal notranslate"><span class="pre">examples/system_prompts/</span></code></p></li>
+</ol>
+<p>See the <a class="reference internal" href="../reference/configuration.html"><span class="std std-doc">Configuration Reference</span></a> for full parameter details.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="what_is_lemat_synth.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What is LeMat-Synth?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-overview">Pipeline Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-modules">Core Modules</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loader">Data Loader</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#material-extraction">Material Extraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthesis-extraction">Synthesis Extraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#judge-evaluation">Judge Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-save">Result Save</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-llm-ensemble">Multi-LLM Ensemble</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technology-stack">Technology Stack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-flow">Configuration Flow</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

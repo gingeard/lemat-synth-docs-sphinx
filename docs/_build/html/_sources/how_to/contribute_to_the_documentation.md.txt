@@ -1,0 +1,40 @@
+# Contribute to Documentation
+
+## Setup
+
+Install docs dependencies:
+
+```text
+uv sync --group docs
+```
+
+## Local Preview
+
+Start the development server:
+
+```text
+make docs-serve
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser. The site auto-reloads on changes.
+
+## Structure
+
+This documentation follows the [Diataxis](https://diataxis.fr/) framework:
+
+| Section | Purpose | Style |
+|---------|---------|-------|
+| **Tutorials** | Learning-oriented | Step-by-step walkthroughs |
+| **How-to Guides** | Task-oriented | Practical recipes |
+| **Explanation** | Understanding-oriented | Conceptual discussion |
+| **Reference** | Information-oriented | Technical descriptions |
+
+## Adding Pages
+
+1. Create a new `.md` file in the appropriate section directory under `docs/`
+2. Add the page to the `{toctree}` directive in the section's `index.md`
+3. Preview locally with `make docs-serve`
+
+## Adding Jupyter Notebooks
+
+Place `.ipynb` files in `examples/notebooks/` (not in `docs/notebooks/`, which is auto-populated). The `docs-prepare` Makefile target copies notebooks into `docs/notebooks/` before building. Reference them from a `{toctree}` directive in any page.

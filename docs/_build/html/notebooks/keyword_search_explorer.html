@@ -1,0 +1,1197 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Keyword Search Explorer &#8212; LeMaterial-Synthesis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=15b16c64" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/keyword_search_explorer';</script>
+    <link rel="icon" href="../_static/lematerial-icon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Superconductivity Tc Extraction Pipeline" href="superconductivity_tc_extraction.html" />
+    <link rel="prev" title="Synthesis + Performance Extraction Pipeline" href="catalysis_synthesis_with_performance.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/lematerial-logo-light.png" class="logo__image only-light" alt="LeMaterial-Synthesis  documentation - Home"/>
+    <img src="../_static/lematerial-icon.png" class="logo__image only-dark pst-js-only" alt="LeMaterial-Synthesis  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanation/index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanation/index.html">
+    Explanation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how_to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/LeMaterial/lematerial-llm-synthesis" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/getting_started.html">Getting Started</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Fig2_Dataset_Statistics.html">Script to plot relevant plots for Fig. 2 (NeurIPS AI4Mat)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fig3_Synthesis_Procedure.html">Script to</a></li>
+<li class="toctree-l1"><a class="reference internal" href="catalysis_map_notebook.html">Map of Science — Figure Workshop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="catalysis_synthesis_with_performance.html">Synthesis + Performance Extraction Pipeline</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Keyword Search Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="superconductivity_tc_extraction.html">Superconductivity Tc Extraction Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="superconductivity_tc_extraction_plus_snippet.html">Superconductivity Tc Extraction Pipeline + Snippet Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthesis_with_performance.html">Synthesis + Performance Extraction Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation_tc.html">Tc Extraction Visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation_tc_with_human_annotation.html">Tc Human Annotation Visualisation</a></li>
+
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Keyword Search Explorer</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Keyword-Search-Explorer">
+<h1>Keyword Search Explorer<a class="headerlink" href="#Keyword-Search-Explorer" title="Link to this heading">#</a></h1>
+<p>Interactive notebook to filter papers from <a class="reference external" href="https://huggingface.co/datasets/LeMaterial/LeMat-Synth-Papers">LeMat-Synth-Papers</a>.</p>
+<p><strong>Pipeline:</strong></p>
+<ol class="arabic simple">
+<li><p>Load the three raw splits (<code class="docutils literal notranslate"><span class="pre">arxiv</span></code>, <code class="docutils literal notranslate"><span class="pre">omg24</span></code>, <code class="docutils literal notranslate"><span class="pre">chemrxiv</span></code>)</p></li>
+<li><p>Pick a split</p></li>
+<li><p>Explore &amp; filter by <strong>categories</strong></p></li>
+<li><p>Filter by <strong>keywords</strong> (Option 1: direct string matching, Option 2: LLM-based)</p></li>
+<li><p>Browse &amp; export results</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+
+<span class="c1"># Load the three raw splits from HuggingFace</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;LeMaterial/LeMat-Synth-Papers&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">token</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available splits:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Columns: </span><span class="si">{</span><span class="n">dataset</span><span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">keys</span><span class="p">()))]</span><span class="o">.</span><span class="n">column_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available splits:
+  arxiv: 62952 papers
+  omg24: 16026 papers
+  chemrxiv: 1962 papers
+  thermocatalysis_keywords_only: 8378 papers
+  thermocatalysis_keywords_and_LLM: 1333 papers
+
+Columns: [&#39;id&#39;, &#39;title&#39;, &#39;authors&#39;, &#39;abstract&#39;, &#39;doi&#39;, &#39;published_date&#39;, &#39;updated_date&#39;, &#39;categories&#39;, &#39;license&#39;, &#39;pdf_url&#39;, &#39;views_count&#39;, &#39;read_count&#39;, &#39;citation_count&#39;, &#39;keywords&#39;, &#39;text_paper&#39;, &#39;text_si&#39;, &#39;source&#39;, &#39;pdf_extractor&#39;, &#39;images&#39;, &#39;structured_synthesis&#39;]
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<section id="Step-1-—-Choose-split(s)">
+<h2>Step 1 — Choose split(s)<a class="headerlink" href="#Step-1-—-Choose-split(s)" title="Link to this heading">#</a></h2>
+<p>Pick one or more raw sources to combine.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">concatenate_datasets</span>
+
+<span class="c1"># Pick one or more splits: &quot;arxiv&quot;, &quot;omg24&quot;, &quot;chemrxiv&quot;</span>
+<span class="n">SPLITS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;arxiv&quot;</span><span class="p">,</span> <span class="s2">&quot;omg24&quot;</span><span class="p">]</span>  <span class="c1"># e.g. [&quot;arxiv&quot;, &quot;omg24&quot;] to combine two sources</span>
+
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">dataset</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">SPLITS</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected splits </span><span class="si">{</span><span class="n">SPLITS</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers total&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Selected splits [&#39;arxiv&#39;, &#39;omg24&#39;]: 78978 papers total
+</pre></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="Step-2-—-Explore-categories">
+<h2>Step 2 — Explore categories<a class="headerlink" href="#Step-2-—-Explore-categories" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">categories</span></code> column is a string. Individual categories are separated by <code class="docutils literal notranslate"><span class="pre">,</span></code> or <code class="docutils literal notranslate"><span class="pre">;</span></code>.</p>
+<ul class="simple">
+<li><p><strong>arxiv</strong>: codes like <code class="docutils literal notranslate"><span class="pre">cond-mat.mtrl-sci</span></code>, <code class="docutils literal notranslate"><span class="pre">physics.chem-ph</span></code></p></li>
+<li><p><strong>chemrxiv</strong>: names like <code class="docutils literal notranslate"><span class="pre">Solid</span> <span class="pre">State</span> <span class="pre">Chemistry</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></li>
+<li><p><strong>omg24</strong>: Semantic Scholar field-of-study labels</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">parse_categories</span><span class="p">(</span><span class="n">cat_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split a categories string by comma and semicolon into a list.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cat_string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">cat_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">sub_part</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">):</span>
+            <span class="n">cleaned</span> <span class="o">=</span> <span class="n">sub_part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cleaned</span><span class="p">:</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cleaned</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parts</span>
+
+
+<span class="c1"># Flatten all categories across the selected split(s)</span>
+<span class="n">all_cats</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cat_string</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]:</span>
+    <span class="n">all_cats</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">parse_categories</span><span class="p">(</span><span class="n">cat_string</span><span class="p">))</span>
+
+<span class="n">cat_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">all_cats</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_counts</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique categories across </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 20 categories:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat_counts</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+915 unique categories across 78978 papers
+
+Top 20 categories:
+Nanomaterials             12331
+Superconductors           12148
+Magnetic                  11937
+Semiconductors            10685
+Ceramics                   6661
+Polymers                   2163
+Metals                     1915
+Other                      1347
+Composites                 1256
+Biomaterials                924
+Chemicals                   640
+Magnetics                   129
+N/A                          86
+Topological Insulators       82
+Superconductor               58
+Polymer                      58
+Intermetallics               38
+Liquid Crystals              31
+Multiferroics                29
+Organic Semiconductors       27
+</pre></div></div>
+</div>
+</section>
+<section id="Step-3-—-Filter-by-categories">
+<h2>Step 3 — Filter by categories<a class="headerlink" href="#Step-3-—-Filter-by-categories" title="Link to this heading">#</a></h2>
+<div class="line-block">
+<div class="line">Keep only papers whose <code class="docutils literal notranslate"><span class="pre">categories</span></code> string contains at least one match.</div>
+<div class="line">Uses substring matching (case-insensitive).</div>
+<div class="line">Set <code class="docutils literal notranslate"><span class="pre">CATEGORY_FILTER</span> <span class="pre">=</span> <span class="pre">[]</span></code> to skip and keep all papers.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Categories to keep (substring match, case-insensitive)</span>
+
+<span class="c1"># Examples:</span>
+<span class="c1">#   arxiv:    [&quot;cond-mat&quot;]</span>
+<span class="c1">#   chemrxiv: [&quot;Solid State Chemistry&quot;, &quot;Surface&quot;]</span>
+<span class="n">CATEGORY_FILTER</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Superconductor&quot;</span><span class="p">]</span>  <span class="c1"># empty = keep all papers</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">filter_by_category</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">category_filter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep papers whose categories string contains any of the filter terms.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">category_filter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ds</span>
+    <span class="n">cat_lower</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">category_filter</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_category</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+        <span class="n">cats</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">cats</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">cats_lower</span> <span class="o">=</span> <span class="n">cats</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">cf</span> <span class="ow">in</span> <span class="n">cats_lower</span> <span class="k">for</span> <span class="n">cf</span> <span class="ow">in</span> <span class="n">cat_lower</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_category</span><span class="p">)</span>
+
+
+<span class="n">ds_cat</span> <span class="o">=</span> <span class="n">filter_by_category</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">CATEGORY_FILTER</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">CATEGORY_FILTER</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Category filter </span><span class="si">{</span><span class="n">CATEGORY_FILTER</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds_cat</span><span class="p">)</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers&quot;</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No category filter applied: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds_cat</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bfcfc34c40b74fca940ae54cf4d8eea0", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Category filter [&#39;Superconductor&#39;]: 12327 / 62952 papers
+</pre></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="Step-4-—-Keyword-filter">
+<h2>Step 4 — Keyword filter<a class="headerlink" href="#Step-4-—-Keyword-filter" title="Link to this heading">#</a></h2>
+<section id="Option-1:-Direct-keyword-matching-(default)">
+<h3>Option 1: Direct keyword matching (default)<a class="headerlink" href="#Option-1:-Direct-keyword-matching-(default)" title="Link to this heading">#</a></h3>
+<p>Papers matching <strong>any</strong> include keyword (and <strong>none</strong> of the exclude keywords) are kept.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Column to search in</span>
+<span class="n">TEXT_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;abstract&quot;</span>
+
+<span class="c1"># Include keywords — papers matching ANY of these are kept</span>
+<span class="n">INCLUDE_KEYWORDS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;resistivity&quot;</span><span class="p">,</span> <span class="s2">&quot;resistance&quot;</span><span class="p">,</span> <span class="s2">&quot;critical temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;Tc&quot;</span><span class="p">]</span>
+
+<span class="n">EXCLUDE_KEYWORDS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;semiconductor&quot;</span><span class="p">]</span>
+
+<span class="c1"># How many papers to display</span>
+<span class="n">NUM_DISPLAY</span> <span class="o">=</span> <span class="mi">20</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">keyword_filter</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span> <span class="n">include_kws</span><span class="p">,</span> <span class="n">exclude_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Filter HuggingFace Dataset by include/exclude keywords.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">matches_include</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">text_lower</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">text_lower</span> <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">include_kws</span><span class="p">)</span>
+
+    <span class="n">filtered</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">matches_include</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">exclude_kws</span><span class="p">:</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">matches_exclude</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">text_lower</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">text_lower</span> <span class="k">for</span> <span class="n">ek</span> <span class="ow">in</span> <span class="n">exclude_kws</span><span class="p">)</span>
+
+        <span class="n">filtered</span> <span class="o">=</span> <span class="n">filtered</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="n">matches_exclude</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">filtered</span>
+
+
+<span class="n">ds_filtered</span> <span class="o">=</span> <span class="n">keyword_filter</span><span class="p">(</span>
+    <span class="n">ds_cat</span><span class="p">,</span> <span class="n">TEXT_COLUMN</span><span class="p">,</span> <span class="n">INCLUDE_KEYWORDS</span><span class="p">,</span> <span class="n">EXCLUDE_KEYWORDS</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Keyword filter: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds_filtered</span><span class="p">)</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds_cat</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "387f238f422d48d09081d434305669de", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "26e93308fbd341fc9871fc9d81677544", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Keyword filter: 5286 / 12327 papers
+</pre></div></div>
+</div>
+</section>
+<section id="Option-2:-LLM-based-keyword-filter-(commented-out)">
+<h3>Option 2: LLM-based keyword filter (commented out)<a class="headerlink" href="#Option-2:-LLM-based-keyword-filter-(commented-out)" title="Link to this heading">#</a></h3>
+<div class="line-block">
+<div class="line">Instead of exact string matching, use an LLM to decide whether a paper is relevant.</div>
+<div class="line">Requires a running <strong>vLLM</strong> endpoint. Uncomment the cell below to use it.</div>
+</div>
+<p><strong>Prerequisites:</strong></p>
+<ul class="simple">
+<li><p>A vLLM server running locally (default: <code class="docutils literal notranslate"><span class="pre">http://localhost:8000/v1</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">openai</span> <span class="pre">transformers</span></code></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # --- Option 2: LLM-based filtering ---</span>
+<span class="c1"># # Uncomment this entire cell to use LLM filtering instead of direct keywords.</span>
+<span class="c1"># # Make sure to skip the Option 1 cells above.</span>
+<span class="c1">#</span>
+<span class="c1"># import openai</span>
+<span class="c1"># from tqdm import tqdm</span>
+<span class="c1"># from transformers import AutoTokenizer</span>
+<span class="c1">#</span>
+<span class="c1"># VLLM_ENDPOINT = &quot;http://localhost:8000/v1&quot;</span>
+<span class="c1"># MODEL_NAME = &quot;mistralai/Ministral-3-14B-Instruct-2512&quot;</span>
+<span class="c1"># MAX_MODEL_LEN = 50000</span>
+<span class="c1">#</span>
+<span class="c1"># # Edit this prompt to match your use case</span>
+<span class="c1"># LLM_PROMPT = &quot;&quot;&quot;You are provided with a scientific materials paper.</span>
+<span class="c1"># Read the paper carefully and determine if it is relevant to the topic</span>
+<span class="c1"># of heterogeneous catalysis with temperature-dependent performance data.</span>
+<span class="c1">#</span>
+<span class="c1"># Answer with only yes or no.</span>
+<span class="c1"># If you are not sure, answer with no.</span>
+<span class="c1">#</span>
+<span class="c1"># Paper: {paper_text}</span>
+<span class="c1"># Question: Is this paper relevant?</span>
+<span class="c1"># Answer:&quot;&quot;&quot;</span>
+<span class="c1">#</span>
+<span class="c1"># client = openai.OpenAI(base_url=VLLM_ENDPOINT, api_key=&quot;not-needed&quot;)</span>
+<span class="c1"># tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># def ask_llm(text):</span>
+<span class="c1">#     &quot;&quot;&quot;Send paper text to LLM and return True if relevant.&quot;&quot;&quot;</span>
+<span class="c1">#     tokens = tokenizer.encode(text)</span>
+<span class="c1">#     if len(tokens) &gt; MAX_MODEL_LEN:</span>
+<span class="c1">#         text = tokenizer.decode(tokens[:MAX_MODEL_LEN - 150])</span>
+<span class="c1">#     message = LLM_PROMPT.format(paper_text=text)</span>
+<span class="c1">#     try:</span>
+<span class="c1">#         response = client.chat.completions.create(</span>
+<span class="c1">#             model=MODEL_NAME,</span>
+<span class="c1">#             messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: message}],</span>
+<span class="c1">#             temperature=0,</span>
+<span class="c1">#             max_tokens=100,</span>
+<span class="c1">#         )</span>
+<span class="c1">#         answer = response.choices[0].message.content.strip().lower()</span>
+<span class="c1">#         return &quot;yes&quot; in answer</span>
+<span class="c1">#     except Exception as e:</span>
+<span class="c1">#         print(f&quot;LLM call failed: {e}&quot;)</span>
+<span class="c1">#         return False</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># # Run LLM filter on the category-filtered dataset (ds_cat)</span>
+<span class="c1"># llm_results = []</span>
+<span class="c1"># for paper in tqdm(ds_cat, desc=&quot;LLM filtering&quot;):</span>
+<span class="c1">#     text = paper.get(&quot;text_paper&quot;) or paper.get(&quot;abstract&quot;) or &quot;&quot;</span>
+<span class="c1">#     llm_results.append(ask_llm(text))</span>
+<span class="c1">#</span>
+<span class="c1"># ds_cat_with_labels = ds_cat.add_column(&quot;llm_relevant&quot;, llm_results)</span>
+<span class="c1"># ds_filtered = ds_cat_with_labels.filter(lambda x: x[&quot;llm_relevant&quot;])</span>
+<span class="c1"># print(f&quot;LLM filter: {len(ds_filtered)} / {len(ds_cat)} papers&quot;)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="Step-5-—-Results">
+<h2>Step 5 — Results<a class="headerlink" href="#Step-5-—-Results" title="Link to this heading">#</a></h2>
+<section id="Per-keyword-match-counts">
+<h3>Per-keyword match counts<a class="headerlink" href="#Per-keyword-match-counts" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Per-keyword counts on the filtered dataset</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">count_keyword_matches</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">:</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">has_keyword</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">keyword</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">example</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_keyword</span><span class="p">))</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+    <span class="k">return</span> <span class="n">counts</span>
+
+
+<span class="n">keyword_counts</span> <span class="o">=</span> <span class="n">count_keyword_matches</span><span class="p">(</span>
+    <span class="n">ds_filtered</span><span class="p">,</span> <span class="n">TEXT_COLUMN</span><span class="p">,</span> <span class="n">INCLUDE_KEYWORDS</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Per-keyword match counts:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">kw</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">keyword_counts</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">kw</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total papers: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ds_filtered</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1788036179b248709122773ceed52e25", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "54a531b169a2413e8017c6cd23abaf91", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cc4a6c287c7644a9afe650912a40e852", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "079b0dca770641feb7f1d6bfba55ebf9", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Per-keyword match counts:
+  Tc: 2900
+  resistivity: 1910
+  resistance: 1168
+  critical temperature: 807
+
+Total papers: 5286
+</pre></div></div>
+</div>
+</section>
+<section id="Browse-results">
+<h3>Browse results<a class="headerlink" href="#Browse-results" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DISPLAY_COLUMNS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf_url&quot;</span><span class="p">]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">DISPLAY_COLUMNS</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ds_filtered</span><span class="o">.</span><span class="n">column_names</span><span class="p">]</span>
+<span class="n">ds_filtered</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">NUM_DISPLAY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>title</th>
+      <th>categories</th>
+      <th>abstract</th>
+      <th>pdf_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0704.0529</td>
+      <td>Scanning Tunneling Spectroscopy in the Superconducting State and Vortex\n  Cores of the beta-pyrochlore KOs2O6</td>
+      <td>Superconductors</td>
+      <td>We performed the first scanning tunneling spectroscopy measurements on the\npyrochlore superconductor KOs2O6 (Tc =...</td>
+      <td>http://arxiv.org/pdf/0704.0529v1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0704.1425</td>
+      <td>Measurements and analysis of the upper critical field $H_{c2}$ on an\n  underdoped and overdoped $La_{2-x}Sr_xCuO_4$...</td>
+      <td>Superconductors</td>
+      <td>The upper critical field $H_{c2}$ is one of the many non conventional\nproperties of high-$T_c$ cuprates. It is po...</td>
+      <td>http://arxiv.org/pdf/0704.1425v2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0704.1528</td>
+      <td>Extremely strong-coupling superconductivity and anomalous lattice\n  properties in the beta-pyrochlore oxide KOs2O6</td>
+      <td>Superconductors</td>
+      <td>Superconducting and normal-state properties of the beta-pyrochlore oxide\nKOs2O6 are studied by means of thermodyn...</td>
+      <td>http://arxiv.org/pdf/0704.1528v1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0704.3526</td>
+      <td>MgB2 single crystals substituted with Li and with Li-C: Structural and\n  superconducting properties</td>
+      <td>Superconductors</td>
+      <td>The effect of Li substitution for Mg and of Li-C co-substitution on the\nsuperconducting properties and crystal st...</td>
+      <td>http://arxiv.org/pdf/0704.3526v1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0705.1239</td>
+      <td>Stray-fields-based magnetoresistance mechanism in Ni80Fe20-Nb-Ni80Fe20\n  trilayers</td>
+      <td>Superconductors</td>
+      <td>We report on the transport and magnetic properties of hybrid trilayers and\nbilayers that consist of low spin-pola...</td>
+      <td>http://arxiv.org/pdf/0705.1239v1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0705.1401</td>
+      <td>Manifestations of fine features of the density of states in the\n  transport properties of KOs2O6</td>
+      <td>Superconductors</td>
+      <td>We performed high-pressure transport measurements on high-quality single\ncrystals of KOs2O6, a beta-pyrochlore su...</td>
+      <td>http://arxiv.org/pdf/0705.1401v1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0705.1438</td>
+      <td>Study and optimization of ion-irradiated High-Tc Josephson nanoJunctions\n  by Monte Carlo simulations</td>
+      <td>Superconductors</td>
+      <td>High Tc Josephson nanoJunctions (HTc JnJ) made by ion irradiation have\nremarkable properties for technological ap...</td>
+      <td>http://arxiv.org/pdf/0705.1438v1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0705.1472</td>
+      <td>Uniform Mixing of Antiferromagnetism and High-Tc Superconductivity in\n  Electron-doped Layers in Four-layered Ba2Ca...</td>
+      <td>Superconductors</td>
+      <td>We report Cu- and F-NMR studies on a four-layered high-temperature\nsuperconductor Ba2Ca3Cu4O8F2(0234F(2.0)) with ...</td>
+      <td>http://arxiv.org/pdf/0705.1472v2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0705.1638</td>
+      <td>Possible manifestation of spin fluctuations in the temperature behavior\n  of resistivity in Sm_{1.85}Ce_{0.15}CuO_4...</td>
+      <td>Superconductors</td>
+      <td>A pronounced step-like (kink) behavior in the temperature dependence of\nresistivity $\rho (T)$ is observed in the...</td>
+      <td>http://arxiv.org/pdf/0705.1638v1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0705.2592</td>
+      <td>Incoherent non-Fermi liquid scattering in a Kondo lattice</td>
+      <td>Superconductors</td>
+      <td>One of the most notorious non-Fermi liquid properties of both archetypal\nheavy-fermion systems [1-4] and the high...</td>
+      <td>http://arxiv.org/pdf/0705.2592v2</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0705.3264</td>
+      <td>Massive enhancement of electron-phonon coupling in doped graphene by an\n  electronic singularity</td>
+      <td>Superconductors</td>
+      <td>The nature of the coupling leading to superconductivity in layered materials\nsuch as high-Tc superconductors and ...</td>
+      <td>http://arxiv.org/pdf/0705.3264v1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0705.4140</td>
+      <td>MgB2 radio-frequency superconducting quantum interference device\n  prepared by atomic force microscope lithography</td>
+      <td>Superconductors</td>
+      <td>A new method of preparation of radio-frequency superconducting quantum\ninterference devices on MgB2 thin films is...</td>
+      <td>http://arxiv.org/pdf/0705.4140v2</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0705.4229</td>
+      <td>Superconducting MgB2 thin films nano-bridges for cryo-electronic\n  application</td>
+      <td>Superconductors</td>
+      <td>Precursor MgB2 thin films were prepared on sapphire substrates by magnetron\nsputtering. Influence of ex-situ anne...</td>
+      <td>http://arxiv.org/pdf/0705.4229v1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0706.0144</td>
+      <td>Direct observation of quantum superconducting fluctuations in an\n  insulating groundstate</td>
+      <td>Superconductors</td>
+      <td>We review our recent measurements of the complex AC conductivity of thin\nInO_x films studied as a function of mag...</td>
+      <td>http://arxiv.org/pdf/0706.0144v1</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0706.0634</td>
+      <td>Room-temperature ferromagnetism in nanoparticles of superconducting\n  materials</td>
+      <td>Superconductors</td>
+      <td>Nanoparticles of superconducting YBa2Cu3O7-delta (YBCO) (Tc = 91 K) exhibit\nferromagnetism at room temperature wh...</td>
+      <td>http://arxiv.org/pdf/0706.0634v1</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0706.0778</td>
+      <td>Nodeless Superconductivity in the Noncentrosymmetric Superconductor\n  $Mg_{10}Ir_{19}B_{16}$</td>
+      <td>Superconductors</td>
+      <td>We measured the resistivity, diamagnetization and low temperature specific\nheat of the newly discovered noncentro...</td>
+      <td>http://arxiv.org/pdf/0706.0778v3</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0706.1309</td>
+      <td>Superconducting behavior of the solid solution, Y2Pd(1-x)Pt(x)Ge3</td>
+      <td>Superconductors</td>
+      <td>The compound Y2PdGe3 was earlier reported by us to be one of the very few\nternary superconducting compounds (T_c=...</td>
+      <td>http://arxiv.org/pdf/0706.1309v2</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0706.1463</td>
+      <td>Nernst Effect in NdBa_2[Cu_{1-y}Ni_y]_3O_{7-\delta}</td>
+      <td>Superconductors</td>
+      <td>In NdBa_2[Cu_{1-y}Ni_y]_3O_{7-\delta}, magnetic Ni-impurities suppress Tc but\nat the same time the pseudogap is s...</td>
+      <td>http://arxiv.org/pdf/0706.1463v1</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0706.2177</td>
+      <td>Physical properties of the noncentrosymmetric superconductor\n  Mg_10Ir_19B_16</td>
+      <td>Superconductors</td>
+      <td>Specific heat, electrical resistivity, and magnetic susceptibility\nmeasurements on a high quality sample of Mg10I...</td>
+      <td>http://arxiv.org/pdf/0706.2177v2</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0706.2180</td>
+      <td>The effect of Fe and Ru substitution for Ni on the thermopower in\n  MgCNi_3</td>
+      <td>Superconductors</td>
+      <td>The intermetallic perovskite MgCNi3 is a superconductor with a Tc=7 K.\nSubstitution of Fe and Ru for Ni decreases...</td>
+      <td>http://arxiv.org/pdf/0706.2180v1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Export-(optional)">
+<h3>Export (optional)<a class="headerlink" href="#Export-(optional)" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df = ds_filtered.to_pandas()</span>
+<span class="c1"># df.to_csv(&quot;filtered_papers.csv&quot;, index=False)</span>
+<span class="c1"># df.to_pickle(&quot;filtered_papers.pkl&quot;)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="catalysis_synthesis_with_performance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Synthesis + Performance Extraction Pipeline</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="superconductivity_tc_extraction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Superconductivity Tc Extraction Pipeline</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-1-—-Choose-split(s)">Step 1 — Choose split(s)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-2-—-Explore-categories">Step 2 — Explore categories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-3-—-Filter-by-categories">Step 3 — Filter by categories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-4-—-Keyword-filter">Step 4 — Keyword filter</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Option-1:-Direct-keyword-matching-(default)">Option 1: Direct keyword matching (default)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Option-2:-LLM-based-keyword-filter-(commented-out)">Option 2: LLM-based keyword filter (commented out)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Step-5-—-Results">Step 5 — Results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Per-keyword-match-counts">Per-keyword match counts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Browse-results">Browse results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Export-(optional)">Export (optional)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notebooks/keyword_search_explorer.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, LeMaterial.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
